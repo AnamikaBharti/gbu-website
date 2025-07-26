@@ -159,14 +159,14 @@ const HiringSection = () => {
             text="Companies hiring worldwide"
           />
           <StatItem
-            icon="https://www.logo.wine/a/logo/Microsoft_Store/Microsoft_Store-Logo.wine.svg"
+            icon="https://imgs.search.brave.com/anSX7MPt3oE9_CvMuzZYj0PIEtCLBHe8BE56bK-VkIQ/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/YnJhbmRmZXRjaC5p/by9pZDF1SUNvNDk3/L3cvNDAwL2gvNDAw/L3RoZW1lL2Rhcmsv/aWNvbi5qcGVnP2M9/MWJ4aWQ2NE11cDdh/Y3pld1NBWU1YJnQ9/MTY2NzU2OTU3Njg3/Mw"
             end={parseInt(first?.alumini_count?.replace(/\D/g, "") || 0)}
             duration={3}
             separator=","
             text="Successful Alumni worldwide"
           />
           <StatItem
-            icon={first?.logo}
+            icon="https://imgs.search.brave.com/gpzFly2lPEAGVUnvwsQkVqbIvTjIplHBojJUseMNT8w/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9ibG9n/Z2VyLmdvb2dsZXVz/ZXJjb250ZW50LmNv/bS9pbWcvYi9SMjl2/WjJ4bC9BVnZYc0Vq/alRhRHh1dWdXTlZr/R0ozVDF5Rkd0N25S/bkI4bHVqbFlIMkxs/NndFX1A0d0FoTElR/TTdRRFBDT2laaVN5/Y1drbGtmTXBZV0hO/X1hSbnJHUEZaRE9N/dEItN2JVT3NGYnh1/a1YwdndYN0l2bXFN/S3NFME1NajQ4eDY5/U05SejBOMm5mYUR6/cFlZU3VoaWMvczYw/MC1ydy9JQk0rTG9n/bystK0Rvd25sb2Fk/K0ZyZWUrVmVjdG9y/K1NWRy53ZWJw"
             end={parseInt(first?.placement_rate?.replace(/\D/g, "") || 0)}
             start={65}
             duration={2.5}
