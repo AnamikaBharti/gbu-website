@@ -12,6 +12,43 @@ const Policies = () => {
   const [expandedFAQ, setExpandedFAQ] = useState(null);
 
   const policies = [
+
+    {
+      title: "Admission Policy",
+      category: "admission",
+      year: "2025",
+      description: "Detailed admission criteria and procedures for all programs",
+      icon: FileText,
+      color: "from-green-400 to-green-600",
+      link: "https://pravesh.gbu.ac.in/Content/Data/GBU-BROCHURE-2025.pdf"
+    },
+    {
+      title: "Research Policy",
+      category: "research",
+      year: "2025",
+      description: "Guidelines for research activities and intellectual property",
+      icon: FileText,
+      color: "from-purple-400 to-purple-600",
+      link: "https://www.gbu.ac.in/Content/gbudata/IIC/GBU-Innovation-StartupPolicy-Mar2025.pdf"
+    },
+    {
+      title: "Anti-Ragging Policy",
+      category: "student",
+      year: "2025",
+      description: "Zero tolerance policy against ragging and harassment",
+      icon: FileText,
+      color: "from-red-400 to-red-600",
+      link: "https://www.gbu.ac.in/content/gbudata/general/AntiRagging-Home-rev.pdf"
+    },
+    {
+      title: "Fee Structure & Refund Policy",
+      category: "financial",
+      year: "2025",
+      description: "Comprehensive fee structure and refund guidelines",
+      icon: FileText,
+      color: "from-yellow-400 to-orange-500",
+      link: "https://gbu-website.vercel.app/admissions/fee-structure-prospectus"
+    },
     {
       title: "Academic Policy 2024",
       category: "academic",
@@ -21,45 +58,15 @@ const Policies = () => {
       color: "from-blue-400 to-blue-600"
     },
     {
-      title: "Admission Policy",
-      category: "admission",
-      year: "2024",
-      description: "Detailed admission criteria and procedures for all programs",
-      icon: FileText,
-      color: "from-green-400 to-green-600"
-    },
-    {
-      title: "Research Policy",
-      category: "research",
-      year: "2023",
-      description: "Guidelines for research activities and intellectual property",
-      icon: FileText,
-      color: "from-purple-400 to-purple-600"
-    },
-    {
-      title: "Anti-Ragging Policy",
-      category: "student",
-      year: "2024",
-      description: "Zero tolerance policy against ragging and harassment",
-      icon: FileText,
-      color: "from-red-400 to-red-600"
-    },
-    {
-      title: "Fee Structure & Refund Policy",
-      category: "financial",
-      year: "2024",
-      description: "Comprehensive fee structure and refund guidelines",
-      icon: FileText,
-      color: "from-yellow-400 to-orange-500"
-    },
-    {
       title: "Grievance Redressal Policy",
       category: "student",
-      year: "2023",
+      year: "2025",
       description: "Mechanism for addressing student and staff grievances",
       icon: FileText,
-      color: "from-indigo-400 to-indigo-600"
-    }
+      color: "from-indigo-400 to-indigo-600",
+      link: "https://gbu-website.vercel.app/escalation-policy"
+    },
+
   ];
 
   const rtiData = [
@@ -177,10 +184,14 @@ const Policies = () => {
                       <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium capitalize">
                         {policy.category}
                       </span>
-                      <button className="flex items-center text-teal-600 hover:text-teal-800 font-semibold transition-colors">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download
-                      </button>
+                      <a
+                        href={policy.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-600 hover:text-emerald-800 transition-colors"
+                      >
+                        <Download className="w-5 h-5" />
+                      </a>
                     </div>
                   </div>
                 </div>

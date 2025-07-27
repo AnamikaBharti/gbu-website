@@ -1,146 +1,178 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Clock, Wifi, Globe, BookOpen, Book, Armchair } from 'lucide-react';
-import SearchableWrapper from '../../components/Searchbar/SearchableWrapper';
+import { motion } from 'framer-motion';
+import {
+  Clock,
+  Wifi,
+  Globe,
+  BookOpen,
+  Armchair,
+  Sparkles,
+  ArrowRight,
+  X,
+  Users, Cpu
+} from 'lucide-react';
 
-// Dialog components
+import StatsCard from '../../components/StatsCard';
+
+const iconColorMap = {
+  book: "#6b21a8", // purple
+  armchair: "#2563eb", // blue
+  "folder-clock": "#059669", // green
+  cpu: "#eab308", // yellow
+};
+
+const iconMap = {
+  book: BookOpen,
+  armchair: Armchair,
+  "folder-clock": Clock,
+  cpu: Cpu,
+};
+
+// UI Components
 const Dialog = ({ open, onOpenChange, children }) => {
   if (!open) return null;
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-      onClick={onOpenChange}
-      aria-modal="true"
-      role="dialog"
-    >
-      <div
-        className="relative w-full max-w-2xl mx-4 sm:mx-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-      </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4" onClick={onOpenChange}>
+      <div className="relative w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>{children}</div>
     </div>
   );
 };
 
-const DialogContent = ({ className = "", children, ...props }) => (
+const DialogContent = ({ children }) => (
+  <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+    {children}
+  </div>
+);
+
+const DialogTitle = ({ children, onClose }) => (
+  <div className="flex items-center justify-between p-6 border-b">
+    <h2 className="text-2xl font-bold text-gray-800">{children}</h2>
+    <button onClick={onClose} className="text-gray-600 hover:text-gray-900">
+      <X size={20} />
+    </button>
+  </div>
+);
+
+const Card = ({ children, onClick, className = '' }) => (
   <div
-    className={`bg-white rounded-lg shadow-lg p-6 sm:p-8 ${className}`}
-    {...props}
+    onClick={onClick}
+    className={`rounded-xl bg-white shadow hover:shadow-md transition transform hover:-translate-y-1 border border-gray-100 cursor-pointer ${className}`}
   >
     {children}
   </div>
 );
 
-const DialogHeader = ({ children }) => <div className="mb-4">{children}</div>;
-
-const DialogTitle = ({ className = "", children, ...props }) => (
-  <h2 className={`text-xl sm:text-2xl font-bold ${className}`} {...props}>
-    {children}
-  </h2>
+const CardContent = ({ children, className = '' }) => (
+  <div className={`p-6 ${className}`}>{children}</div>
 );
 
-const Card = ({ className = "", children, ...props }) => (
-  <div className={`rounded-lg border-gray-300 bg-white text-black shadow-sm ${className}`} {...props}>
-    {children}
+const FloatingParticles = () => (
+  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    {[...Array(5)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-20"
+        animate={{ x: [0, 100, 0], y: [0, -100, 0], scale: [1, 1.3, 1] }}
+        transition={{ duration: 10 + i * 2, repeat: Infinity, delay: i * 1.5 }}
+        style={{ top: `${i * 15 + 10}%`, left: `${i * 20}%` }}
+      />
+    ))}
   </div>
 );
-
-const CardContent = ({ className = "", children, ...props }) => (
-  <div className={`p-6 pt-0 ${className}`} {...props}>
-    {children}
-  </div>
-);
-
-const iconMap = {
-  book: BookOpen,
-  armchair: Armchair,
-  clock: Clock,
-  wifi: Wifi,
-  globe: Globe,
-};
 
 const Library = () => {
-  const [libraryInfo, setLibraryInfo] = useState(null);
+  const [libraryInfo, setLibraryInfo] = useState({ title: '', description: '' });
   const [features, setFeatures] = useState([]);
   const [stats, setStats] = useState([]);
   const [facilities, setFacilities] = useState([]);
   const [selectedSpace, setSelectedSpace] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const BASE_URL = import.meta.env.VITE_HOST;
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!BASE_URL) return;
       try {
-        const [infoRes, featuresRes, statsRes, facilitiesRes] = await Promise.all([
-          axios.get(`${BASE_URL}/campuslife/library-info/`),
-          axios.get(`${BASE_URL}/campuslife/library-facilities/`),
-          axios.get(`${BASE_URL}/campuslife/library-stats/`),
-          axios.get(`${BASE_URL}/campuslife/library-facilities/`),
+        setIsLoading(true);
+        const [infoRes, facilitiesRes, statsRes] = await Promise.all([
+          fetch(`${BASE_URL}/campuslife/library-info/`).then(res => res.json()),
+          fetch(`${BASE_URL}/campuslife/library-facilities/`).then(res => res.json()),
+          fetch(`${BASE_URL}/campuslife/library-stats/`).then(res => res.json())
         ]);
-        setLibraryInfo(infoRes.data[0]);
-        setFeatures(featuresRes.data);
-        setStats(statsRes.data);
-        setFacilities(facilitiesRes.data);
-      } catch (error) {
-        console.error('Failed to fetch library data:', error);
+
+        if (infoRes?.[0]) setLibraryInfo(infoRes[0]);
+        if (facilitiesRes?.length) setFeatures(facilitiesRes);
+        if (statsRes?.length) {
+          const mapped = statsRes.map(item => ({
+            title: item.value,
+            // number: parseInt(item.label.replace(/\D/g, '')) || 0,
+            numberText: item.label,
+            icon: iconMap[item.icon] || BookOpen,
+            iconColor: iconColorMap[item.icon] || "#6b21a8"
+          }));
+          setStats(mapped);
+          setFacilities(facilitiesRes);
+        }
+
+      } catch (e) {
+        console.error('Library fetch error', e);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchData();
   }, [BASE_URL]);
 
+
+
+  if (isLoading) return <div className="min-h-screen flex justify-center items-center"><div className="loader" /></div>;
+
   return (
-    <SearchableWrapper>
-    <section id="library" className="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
-      <div className="container mx-auto px-4">
-        {/* Dynamic Title & Description */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            {libraryInfo?.title || 'Library'}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {libraryInfo?.description}
+    <section className="relative py-20 bg-gradient-to-br from-gray-50 to-white">
+      <FloatingParticles />
+      <div className='flex justify-around align-middle mb-20'>
+        <div className="text-center w-2/5">
+
+          <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
+            {libraryInfo.title}
+          </h1>
+          <p className="text-gray-600 text-lg">
+            {libraryInfo.description}
           </p>
         </div>
+        <img src="https://library.gbu.ac.in/img/Artboard%201library1.jpg" alt="Library" className="w-170 h-100 mt-8 transition-transform duration-300 hover:scale-105 object-cover rounded-2xl" />
+      </div>
+
+      <div className="mx-30 px-6">
+
 
         {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-6xl mx-auto mb-16">
-          {features.map((feature, index) => (
-            <Card key={index} className="text-center hover:shadow-xl transition-all pt-5 duration-500 hover:scale-105">
-              <CardContent className="p-6">
-                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Clock className="text-white" size={32} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {features.map((f, i) => (
+            <Card key={i}>
+              <CardContent>
+                <div className="mb-4 flex justify-center">
+                  <div className="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center">
+                    <Clock size={24} />
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.name}</h3>
-                <p className="text-gray-600 text-sm">{feature.description}</p>
+                <h3 className="text-xl font-semibold text-gray-800 text-center mb-2">{f.name}</h3>
+                <p className="text-gray-500 text-center text-sm">{f.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Facilities */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">Library Facilities</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 mx-10 gap-6 mb-8">
-            {facilities.map((facility, index) => (
-              <Card
-                key={index}
-                className="cursor-pointer transition-all duration-500 hover:scale-105 hover:shadow-xl"
-                onClick={() => setSelectedSpace(facility)}
-              >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={facility.image}
-                      alt={facility.name}
-                      className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    <div className="absolute bottom-3 left-3 text-white">
-                      <h4 className="font-bold text-sm">{facility.name}</h4>
-                      <p className="text-xs opacity-90">{facility.description}</p>
-                    </div>
-                  </div>
+        <div className="mb-20">
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Library Facilities</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {facilities.map((facility, idx) => (
+              <Card key={idx} onClick={() => setSelectedSpace(facility)}>
+                <img src={facility.image} alt={facility.name} className="w-full h-52 object-cover rounded-t-xl" />
+                <CardContent>
+                  <h3 className="font-semibold text-lg text-gray-800 mb-1">{facility.name}</h3>
+                  <p className="text-gray-500 text-sm line-clamp-2">{facility.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -148,40 +180,36 @@ const Library = () => {
         </div>
 
         {/* Stats */}
-        <Card className="bg-gradient-to-r pt-5 from-purple-600 to-blue-600 text-white">
-          <CardContent className="p-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {stats.map((stat, index) => (
-                <div key={index}>
-                  <div className="text-3xl font-bold mb-2">{stat.label}</div>
-                  <div className="text-sm opacity-90">{stat.value}</div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Dialog */}
-        {selectedSpace && (
-          <Dialog open={!!selectedSpace} onOpenChange={() => setSelectedSpace(null)}>
-            <DialogContent className="max-w-2xl bg-white">
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">{selectedSpace.name}</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-6">
-                <img
-                  src={selectedSpace.image}
-                  alt={selectedSpace.name}
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-                <p className="text-gray-700">{selectedSpace.description}</p>
-              </div>
-            </DialogContent>
-          </Dialog>
-        )}
+        <StatsCard stats={stats} />
       </div>
+
+      {/* Dialog */}
+      {selectedSpace && (
+        <Dialog open={!!selectedSpace} onOpenChange={() => setSelectedSpace(null)}>
+          <DialogContent>
+            <DialogTitle onClose={() => setSelectedSpace(null)}>{selectedSpace.name}</DialogTitle>
+            <div className="p-6">
+              <img src={selectedSpace.image} alt={selectedSpace.name} className="rounded-lg mb-4 w-full h-60 object-cover" />
+              <p className="text-gray-700 mb-4">{selectedSpace.description}</p>
+              <div className="mb-4">
+                <div className="flex items-center gap-2">
+                  <Users className="text-blue-600" size={20} />
+                  <span className="text-sm text-gray-800 font-medium">{selectedSpace.capacity}</span>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-800 mb-2">Amenities</h4>
+                <ul className="list-disc ml-6 text-sm text-gray-600 space-y-1">
+                  {selectedSpace.amenities?.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </section>
-    </SearchableWrapper>
   );
 };
 

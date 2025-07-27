@@ -468,10 +468,10 @@ const AboutGbu = () => {
           <div className="max-w-7xl mx-auto px-4">
             {/* Header */}
             <div className="text-center mb-20">
-              <Badge color="purple" className="inline-flex items-center px-4 py-2 text-sm font-semibold bg-purple-100 text-purple-700 rounded-full shadow-md mb-5">
+              {/* <Badge color="purple" className="inline-flex items-center px-4 py-2 text-sm font-semibold bg-purple-100 text-purple-700 rounded-full shadow-md mb-5">
                 <Shield className="w-5 h-5 mr-2" />
                 Leadership
-              </Badge>
+              </Badge> */}
               <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
                 Governance & Organizational Leadership
               </h2>
@@ -508,10 +508,10 @@ const AboutGbu = () => {
         <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-16">
-              <Badge color="blue" className="mb-4">
+              {/* <Badge color="blue" className="mb-4">
                 <BookOpen className="w-4 h-4 mr-2" />
                 Academic Excellence
-              </Badge>
+              </Badge> */}
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Academic Schools & Programs
               </h2>
@@ -553,10 +553,10 @@ const AboutGbu = () => {
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-16">
-              <Badge color="green" className="mb-4">
+              {/* <Badge color="green" className="mb-4">
                 <Building className="w-4 h-4 mr-2" />
                 Infrastructure
-              </Badge>
+              </Badge> */}
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 World-Class Facilities & Infrastructure
               </h2>
@@ -645,10 +645,10 @@ const AboutGbu = () => {
 
               <Card className="shadow-none bg-transparent">
                 <CardContent className="p-8 md:p-12">
-                  <Badge color="green" className="mb-6 inline-flex items-center gap-2 text-lg font-semibold ">
+                  {/* <Badge color="green" className="mb-6 inline-flex items-center gap-2 text-lg font-semibold ">
                     <Heart className="w-5 h-5" />
                     Wellness
-                  </Badge>
+                  </Badge> */}
 
                   <h2 className="text-4xl font-extrabold text-gray-900 mb-8">
                     Meditation & Wellness Center
@@ -748,10 +748,10 @@ const AboutGbu = () => {
           <div className="max-w-7xl mx-auto px-4">
             {/* Header */}
             <div className="text-center mb-16">
-              <Badge color="purple" className="mb-4 bg-purple-100 text-purple-700 border border-purple-200 border-solid">
+              {/* <Badge color="purple" className="mb-4 bg-purple-100 text-purple-700 border border-purple-200 border-solid">
                 <Trophy className="w-4 h-4 mr-2" />
                 Athletics Excellence
-              </Badge>
+              </Badge> */}
               <h2 className="text-4xl font-bold mb-4 text-gray-900">
                 Sports & Recreation
               </h2>

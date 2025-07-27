@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import aiLab from '../../assets/coe/aiLab.jpg'; 
+import drone from '../../assets/coe/drone.avif';
+import cyber from '../../assets/coe/cyber.webp';
+import biotech from '../../assets/coe/biotech.webp';
+import ccc from '../../assets/coe/ccc.jpg';
+import smart from '../../assets/coe/smart.webp';
+import material from '../../assets/coe/material.jpg';
+
 const BASE = (import.meta.env.VITE_HOST || '').replace(/\/$/, '');
 const EXCELLENCE_API = `${BASE}/landing/excellence-in-education/`;
 
@@ -21,6 +29,18 @@ const iconMap = {
   'research labs': '🧪',
   'infrastructure': '🏢',
 };
+
+const manualImageMap = {
+  "Artificial Intelligence Center": aiLab,
+  "Drone Technology Hub":drone,
+  "Cybersecurity Institute":cyber ,
+  "Bioinformatics Lab": biotech,
+  "High Performance Computing Center": ccc,
+  "Smart Campus Network":smart,
+  "Materials Research Facility": material,
+
+};
+
 
 export default function ExcellenceSection() {
   const [activeTab, setActiveTab] = useState('Centers of Excellence');
@@ -97,11 +117,10 @@ export default function ExcellenceSection() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`px-6 py-3 font-semibold text-sm rounded-xl transform hover:scale-105 transition-transform duration-100 ${
-                    activeTab === tab
+                  className={`px-6 py-3 font-semibold text-sm rounded-xl transform hover:scale-105 transition-transform duration-100 ${activeTab === tab
                       ? 'bg-gradient-to-r from-purple-500 to-cyan-500 text-white shadow-lg shadow-purple-500/25'
                       : 'text-gray-600 hover:text-gray-800 hover:bg-gray-100'
-                  }`}
+                    }`}
                 >
                   {tab}
                 </button>
@@ -121,11 +140,12 @@ export default function ExcellenceSection() {
 
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={getImageUrl(item.image)}
+                  src={manualImageMap[item.title] || getImageUrl(item.image)}
                   alt={item.title}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
+
                 <div className={`absolute inset-0 opacity-60`}></div>
                 <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-2xl">
                   {item.icon}

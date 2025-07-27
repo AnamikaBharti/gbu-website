@@ -97,7 +97,7 @@ const ViceChancellor = () => {
               <strong>h-index:</strong> 78
             </p>
             <p className="text-sm">
-              <strong>i10-index:</strong> 154
+              <strong>i10-index:</strong> 157
             </p>
             <p className="text-sm">
               <strong>Citations:</strong> 16,539 total (5,266 since 2020)
@@ -264,17 +264,18 @@ const ViceChancellor = () => {
                       <h3 className="text-xl font-bold text-gray-800 mb-4">Research Impact</h3>
                       <div className="space-y-3">
                         <div className="bg-cyan-50 p-3 rounded-lg">
-                          <p className="text-sm font-semibold text-cyan-800">H-Index: 42</p>
+                          <p className="text-sm font-semibold text-cyan-800">H-Index: 78</p>
                           <p className="text-xs text-gray-600">High research impact factor</p>
                         </div>
-                        <div className="bg-teal-50 p-3 rounded-lg">
-                          <p className="text-sm font-semibold text-teal-800">₹15+ Crores</p>
-                          <p className="text-xs text-gray-600">Research grants secured</p>
-                        </div>
-                        <div className="bg-emerald-50 p-3 rounded-lg">
+                         <div className="bg-emerald-50 p-3 rounded-lg">
                           <p className="text-sm font-semibold text-emerald-800">180+ Publications</p>
                           <p className="text-xs text-gray-600">Peer-reviewed research papers</p>
                         </div>
+                        <div className="bg-teal-50 p-3 rounded-lg">
+                          <p className="text-sm font-semibold text-teal-800">Major Funded Projects & Collaborations</p>
+                          <p className="text-xs text-gray-600">Secured competitive research funding from premier national agencies including the Ministry of AYUSH, Department of Science & Technology (DST), University Grants Commission (UGC), Indian Council of Medical Research (ICMR), Department of Biotechnology (DBT), and Council of Scientific & Industrial Research (CSIR). Led Centre of Excellence and National Facility projects on cancer chemoprevention, natural product-based therapies, and single-cell spheroid technologies.</p>
+                        </div>
+                       
                       </div>
                        <button className="ml-20 mt-60 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-50" onClick={() => window.open("https://rpscancerlab.com/", "_blank")} >
 
