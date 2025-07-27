@@ -22,17 +22,17 @@ const Glance = () => {
     <div
       tabIndex={0}
       key={label}
-      className="rounded-xl p-6 bg-white/10 backdrop-blur-2xl border border-white/20 shadow-lg hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-white transition-transform duration-300"
+      className="rounded-xl p-6 bg-white backdrop-blur-2xl border border-white/20 shadow-lg hover:scale-105 focus:scale-105 focus:outline-none focus:ring-2 focus:ring-white transition-transform duration-300"
     >
-      <p className="text-3xl font-bold text-white">{value}</p>
-      <p className="mt-2 text-sm text-gray-200">{label}</p>
+      <p className="text-3xl font-bold text-green-600">{value}</p>
+      <p className="mt-2 text-sm text-">{label}</p>
     </div>
   );
 
   return (
     <section
       aria-label="GBU statistics overview"
-      className="relative py-16 text-white bg-gradient-to-r from-green-800 via-blue-800 to-orange-800"
+      className="relative py-16 text-indigo-700 bg-gray-100"
     >
       <div className="max-w-screen-xl mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-10">
