@@ -128,19 +128,21 @@ const Library = () => {
   if (isLoading) return <div className="min-h-screen flex justify-center items-center"><div className="loader" /></div>;
 
   return (
-    <section className="relative py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="relative py-10 bg-gradient-to-br from-gray-50 to-white">
       <FloatingParticles />
       <div className='flex justify-around align-middle mb-20'>
-        <div className="text-center w-2/5">
+        <img src="https://library.gbu.ac.in/img/Artboard%201library1.jpg" alt="Library" className="w-170 h-100 mt-8 transition-transform duration-300 hover:scale-105 object-cover rounded-2xl" />
+        <div className="text-center w-1/2 ">
 
           <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
             {libraryInfo.title}
           </h1>
-          <p className="text-gray-600 text-lg">
-            {libraryInfo.description}
-          </p>
+          <p className="text-gray-600 text-lg leading-relaxed max-w-4xl mx-auto px-4 text-justify">
+    {libraryInfo.description}
+</p>
+
         </div>
-        <img src="https://library.gbu.ac.in/img/Artboard%201library1.jpg" alt="Library" className="w-170 h-100 mt-8 transition-transform duration-300 hover:scale-105 object-cover rounded-2xl" />
+        
       </div>
 
       <div className="mx-30 px-6">
@@ -163,24 +165,7 @@ const Library = () => {
           ))}
         </div>
 
-        {/* Facilities */}
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Library Facilities</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {facilities.map((facility, idx) => (
-              <Card key={idx} onClick={() => setSelectedSpace(facility)}>
-                <img src={facility.image} alt={facility.name} className="w-full h-52 object-cover rounded-t-xl" />
-                <CardContent>
-                  <h3 className="font-semibold text-lg text-gray-800 mb-1">{facility.name}</h3>
-                  <p className="text-gray-500 text-sm line-clamp-2">{facility.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Stats */}
-        <StatsCard stats={stats} />
+ 
       </div>
 
       {/* Dialog */}

@@ -89,7 +89,7 @@ export default function WelcomePage() {
   return (
     <>
       {/* Main welcome section */}
-      <div className="relative h-screen w-full flex flex-col justify-center overflow-hidden">
+      <div className="relative h-[82.4vh] w-full flex flex-col justify-center overflow-hidden">
         {/* Background video or image */}
         {bannerData.video?.endsWith(".mp4") ? (
           <video
